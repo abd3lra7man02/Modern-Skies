@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Afterburner Plumes -->
+    <path
+        android:fillColor="#FF5722"
+        android:pathData="M49,76 L51,88 L53,76 Z M55,76 L57,88 L59,76 Z" />
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M50,76 L51,84 L52,76 Z M56,76 L57,84 L58,76 Z" />
+
+    <!-- Jet Main Fuselage and Delta Wings -->
+    <path
+        android:fillColor="#E2E8F0"
+        android:pathData="M54,26 L58,40 L78,64 L74,68 L59,62 L60,76 L54,73 L48,76 L49,62 L34,68 L30,64 L50,40 Z" />
+
+    <!-- Wing Chine / Edge Accents (Darker Alloy) -->
+    <path
+        android:fillColor="#94A3B8"
+        android:pathData="M54,28 L57,41 L73,63 L69,65 L57,60 L54,61 L51,60 L39,65 L35,63 L51,41 Z" />
+
+    <!-- Twin Vertical Stabilizers -->
+    <path
+        android:fillColor="#64748B"
+        android:pathData="M46,62 L44,74 L48,74 L49,63 Z M62,62 L64,74 L60,74 L59,63 Z" />
+
+    <!-- Cockpit Canopy (Glowing Cyan Gold) -->
+    <path
+        android:fillColor="#38BDF8"
+        android:pathData="M54,34 L56.5,45 L54,49 L51.5,45 Z" />
+    <path
+        android:fillColor="#F8FAFC"
+        android:pathData="M53.5,36 L54.5,42 L53.5,44 Z" />
+
+    <!-- Wingtip Missiles -->
+    <path
+        android:fillColor="#EF4444"
+        android:pathData="M29,56 L31,56 L31,66 L29,66 Z M77,56 L79,56 L79,66 L77,66 Z" />
+</vector>

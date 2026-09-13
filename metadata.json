@@ -1,0 +1,6 @@
+{
+  "name": "Modern Skies",
+  "description": "Modern vertical shoot-'em-up aerial combat game featuring realistic fighter jet combat, modular weapon systems, dynamic battlefield events, and tactical aircraft progression.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
