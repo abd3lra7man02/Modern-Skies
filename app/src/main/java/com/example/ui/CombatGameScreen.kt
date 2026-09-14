@@ -279,42 +279,100 @@ fun CombatGameScreen(
                 Box(contentAlignment = Alignment.Center) {
                     Card(
                         modifier = Modifier
-                            .fillMaxWidth(0.85f)
+                            .fillMaxWidth(0.88f)
                             .padding(24.dp),
                         colors = CardDefaults.cardColors(containerColor = Color(0xFF0F172A)),
-                        border = androidx.compose.foundation.BorderStroke(1.5.dp, Color(0xFF38BDF8))
+                        border = androidx.compose.foundation.BorderStroke(1.5.dp, Color(0xFF38BDF8)),
+                        shape = RoundedCornerShape(12.dp)
                     ) {
                         Column(
-                            modifier = Modifier.padding(20.dp),
+                            modifier = Modifier.padding(24.dp),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Text(
                                 text = "SORTIE PAUSED",
                                 color = Color.White,
-                                fontSize = 20.sp,
+                                fontSize = 22.sp,
                                 fontWeight = FontWeight.Black,
-                                fontFamily = FontFamily.Monospace
+                                fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                                letterSpacing = 2.sp
                             )
                             Spacer(modifier = Modifier.height(16.dp))
+
+                            // Current Stats Section
+                            Card(
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFF1E293B)),
+                                shape = RoundedCornerShape(8.dp)
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(12.dp),
+                                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                                ) {
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
+                                        Text("CURRENT SCORE", color = Color(0xFF94A3B8), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                        Text("${hudState.score}", color = Color(0xFF38BDF8), fontSize = 12.sp, fontWeight = FontWeight.Black, fontFamily = FontFamily.Monospace)
+                                    }
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
+                                        Text("CREDITS EARNED", color = Color(0xFF94A3B8), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                        Text("${hudState.creditsEarned} CR", color = Color(0xFFFBBF24), fontSize = 12.sp, fontWeight = FontWeight.Black, fontFamily = FontFamily.Monospace)
+                                    }
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
+                                        Text("ENEMIES NEUTRALIZED", color = Color(0xFF94A3B8), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                        Text("${hudState.airTargetsDestroyed + hudState.groundTargetsDestroyed}", color = Color(0xFF22C55E), fontSize = 12.sp, fontWeight = FontWeight.Black, fontFamily = FontFamily.Monospace)
+                                    }
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
+                                        Text("MISSION TIME", color = Color(0xFF94A3B8), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                        Text("${hudState.missionTimeSec.toInt()}s", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Black, fontFamily = FontFamily.Monospace)
+                                    }
+                                }
+                            }
+
+                            Spacer(modifier = Modifier.height(20.dp))
                             Button(
                                 onClick = {
                                     isPaused = false
                                     engine.isPaused = false
                                 },
-                                modifier = Modifier.fillMaxWidth().testTag("resume_button"),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF38BDF8))
+                                modifier = Modifier.fillMaxWidth().height(46.dp).testTag("resume_button"),
+                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF38BDF8)),
+                                shape = RoundedCornerShape(8.dp)
                             ) {
-                                Text("RESUME COMBAT", color = Color(0xFF0F172A), fontWeight = FontWeight.Bold)
+                                Text("RESUME COMBAT", color = Color(0xFF0F172A), fontWeight = FontWeight.Black, fontSize = 13.sp, letterSpacing = 1.sp)
+                            }
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Button(
+                                onClick = {
+                                    viewModel.navigateTo(AppScreen.MAIN_MENU)
+                                },
+                                modifier = Modifier.fillMaxWidth().height(46.dp).testTag("main_menu_button"),
+                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF475569)),
+                                shape = RoundedCornerShape(8.dp)
+                            ) {
+                                Text("RETURN TO MAIN MENU", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             }
                             Spacer(modifier = Modifier.height(8.dp))
                             Button(
                                 onClick = {
                                     viewModel.navigateTo(AppScreen.HANGAR)
                                 },
-                                modifier = Modifier.fillMaxWidth().testTag("abort_button"),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEF4444))
+                                modifier = Modifier.fillMaxWidth().height(46.dp).testTag("abort_button"),
+                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEF4444)),
+                                shape = RoundedCornerShape(8.dp)
                             ) {
-                                Text("ABORT TO HANGAR", color = Color.White, fontWeight = FontWeight.Bold)
+                                Text("ABORT TO HANGAR", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             }
                         }
                     }

@@ -337,7 +337,7 @@ fun MissionSelectScreen(
                 TacticalButton(
                     onClick = {
                         viewModel.soundManager.playButtonClick()
-                        viewModel.startSortie(selectedMission.number)
+                        viewModel.showBriefing(selectedMission.number)
                     },
                     enabled = isSelectedUnlocked,
                     modifier = Modifier

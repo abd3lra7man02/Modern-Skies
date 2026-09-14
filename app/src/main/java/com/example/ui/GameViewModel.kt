@@ -30,6 +30,7 @@ enum class AppScreen {
     HANGAR,
     LOADOUT,
     MISSION_SELECT,
+    MISSION_BRIEFING,
     IN_GAME
 }
 
@@ -150,6 +151,11 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun showBriefing(missionNum: Int) {
+        _selectedMissionNumber.value = missionNum
+        _currentScreen.value = AppScreen.MISSION_BRIEFING
+    }
+
     fun startSortie(missionNum: Int) {
         val prof = profile.value ?: PlayerProfile()
         val upgradesMap = allUpgrades.value.associate { it.upgradeKey to it.level }
@@ -173,13 +179,11 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun startSurvivalMode() {
-        _selectedMissionNumber.value = 5
-        startSortie(5)
+        showBriefing(5)
     }
 
     fun startBossRush() {
-        _selectedMissionNumber.value = 10
-        startSortie(10)
+        showBriefing(10)
     }
 
     fun claimEmergencyCredits(amount: Int = 1000) {

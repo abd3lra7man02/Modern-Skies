@@ -671,9 +671,7 @@ class GameEngine(
                 for (e in enemies) {
                     if (e.isDestroyed) continue
                     val hitRadius = if (e.isGround) 42f else 32f
-                    val dx = b.x - e.x
-                    val dy = b.y - e.y
-                    if (dx * dx + dy * dy < hitRadius * hitRadius) {
+                    if (GamePhysicsEngine.checkCircleCollision(b.x, b.y, 4f, e.x, e.y, hitRadius)) {
                         e.hp -= b.damage * critMult
                         e.hitFlashTimer = 0.12f
                         hit = true
@@ -699,9 +697,7 @@ class GameEngine(
             } else {
                 // Hostile bullet hitting player
                 if (player.isAlive) {
-                    val dx = b.x - player.x
-                    val dy = b.y - player.y
-                    if (dx * dx + dy * dy < 28f * 28f) {
+                    if (GamePhysicsEngine.checkCircleCollision(b.x, b.y, 4f, player.x, player.y, 28f)) {
                         damagePlayer(b.damage)
                         bulletIterator.remove()
                     }
@@ -992,18 +988,19 @@ class GameEngine(
     }
 
     private fun fireEnemyWeapon(e: Enemy) {
+        val diffMultiplier = (1f + score * 0.0004f).coerceIn(1f, 2.5f)
         when (e.category) {
             EnemyCategory.AIR_SCOUT -> {
-                bullets.add(Bullet(e.x, e.y + 20f, 0f, 9f, false, 12f, false, Color(0xFFEF4444)))
+                bullets.add(Bullet(e.x, e.y + 20f, 0f, 9f * diffMultiplier, false, 12f, false, Color(0xFFEF4444)))
             }
             EnemyCategory.AIR_INTERCEPTOR -> {
-                bullets.add(Bullet(e.x - 10f, e.y + 20f, -0.8f, 11f, false, 14f, false, Color(0xFFF97316)))
-                bullets.add(Bullet(e.x + 10f, e.y + 20f, 0.8f, 11f, false, 14f, false, Color(0xFFF97316)))
+                bullets.add(Bullet(e.x - 10f, e.y + 20f, -0.8f * diffMultiplier, 11f * diffMultiplier, false, 14f, false, Color(0xFFF97316)))
+                bullets.add(Bullet(e.x + 10f, e.y + 20f, 0.8f * diffMultiplier, 11f * diffMultiplier, false, 14f, false, Color(0xFFF97316)))
             }
             EnemyCategory.AIR_GUNSHIP -> {
                 // Triple burst
                 for (i in -1..1) {
-                    bullets.add(Bullet(e.x + i * 18f, e.y + 25f, i * 1.5f, 9f, false, 16f, true, Color(0xFFDC2626)))
+                    bullets.add(Bullet(e.x + i * 18f, e.y + 25f, i * 1.5f * diffMultiplier, 9f * diffMultiplier, false, 16f, true, Color(0xFFDC2626)))
                 }
             }
             EnemyCategory.GROUND_SAM -> {
@@ -1554,7 +1551,9 @@ class GameEngine(
     private var spawnTimer = 0f
     private fun updateSpawnWave(dtSec: Float) {
         spawnTimer += dtSec
-        val spawnInterval = if (missionInfo.isBossMission) 3.5f else 1.8f
+        val baseInterval = if (missionInfo.isBossMission) 3.5f else 1.8f
+        val diffMultiplier = (1f + score * 0.0004f).coerceIn(1f, 3.0f)
+        val spawnInterval = (baseInterval / diffMultiplier).coerceAtLeast(0.5f)
 
         if (spawnTimer >= spawnInterval && missionTimeSec < missionDurationSec) {
             spawnTimer = 0f

@@ -20,6 +20,8 @@ import com.example.ui.MissionSelectScreen
 import com.example.ui.theme.DarkBackground
 import com.example.ui.theme.MyApplicationTheme
 
+import com.example.ui.MissionBriefingScreen
+
 class MainActivity : ComponentActivity() {
 
     private val viewModel: GameViewModel by viewModels()
@@ -34,6 +36,7 @@ class MainActivity : ComponentActivity() {
                 BackHandler(enabled = currentScreen != AppScreen.MAIN_MENU) {
                     when (currentScreen) {
                         AppScreen.IN_GAME -> viewModel.navigateTo(AppScreen.MAIN_MENU)
+                        AppScreen.MISSION_BRIEFING -> viewModel.navigateTo(AppScreen.MISSION_SELECT)
                         AppScreen.MISSION_SELECT -> viewModel.navigateTo(AppScreen.MAIN_MENU)
                         AppScreen.HANGAR -> viewModel.navigateTo(AppScreen.MAIN_MENU)
                         else -> {}
@@ -48,6 +51,7 @@ class MainActivity : ComponentActivity() {
                         AppScreen.MAIN_MENU -> MainMenuScreen(viewModel)
                         AppScreen.HANGAR -> HangarScreen(viewModel)
                         AppScreen.MISSION_SELECT -> MissionSelectScreen(viewModel)
+                        AppScreen.MISSION_BRIEFING -> MissionBriefingScreen(viewModel)
                         AppScreen.IN_GAME -> CombatGameScreen(viewModel)
                         else -> MainMenuScreen(viewModel)
                     }
